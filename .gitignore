@@ -1,0 +1,40 @@
+# Python cache and bytecode files
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environment
+venv/
+vehicle-detection-env/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Data and results
+data/
+results/
+*.csv
+
+# Model weights
+models/
+*.pt
+*.pth
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# VS Code settings
+.vscode/
+
+# Logs
+*.log
+
+# Environment/config files
+.env
+.env.*
+
+# PyInstaller output
+dist/
+build/
+*.spec
