@@ -11,9 +11,8 @@ vehicle-detection-env/
 .ipynb_checkpoints/
 
 # Data and results
-data/
 results/
-*.csv
+
 
 # Model weights
 models/

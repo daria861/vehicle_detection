@@ -4,5 +4,5 @@ def display_parameters():
     pass
     
 
-if __name__ == "__main__":
-    run_detection()
+#if __name__ == "__main__":
+#    run_detection()
