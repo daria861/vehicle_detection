@@ -5,12 +5,12 @@ import numpy as np
 import pandas as pd
 
 
-def load_color_refs(csv_path="data/colors.csv"):
+def load_color_refs(csv_path):
     df = pd.read_csv(csv_path, header=None)
     df.columns = ["name", "label", "hex", "r", "g", "b"]
     df["bgr"] = df[["b", "g", "r"]].values.tolist()
     df["bgr"] = df["bgr"].apply(np.array)
-    return df[["name", "bgr"]]
+    return df[["name", "hex", "bgr"]]
 
 def estimate_color_vectorized(image, bbox, color_refs):
     x1, y1, x2, y2 = map(int, bbox)
@@ -23,13 +23,23 @@ def estimate_color_vectorized(image, bbox, color_refs):
     ref_colors = np.stack(color_refs["bgr"].values)
     dists = np.linalg.norm(ref_colors - avg_color, axis=1)
     min_idx = np.argmin(dists)
-    return color_refs.iloc[min_idx]["name"]
+    #return color_refs.iloc[min_idx]["hex"]
+    return color_refs.iloc[min_idx]["hex"]
 
+def resize_frame(frame, scale=0.75):
+    width = int(frame.shape[1] * scale)
+    height = int(frame.shape[0] * scale)
+    dimensions = (width, height)
+    return cv2.resize(frame, dimensions, interpolation=cv2.INTER_AREA)
 
+def read_image(source):
+    pass
 
+def read_video(source):
+    pass
 
 def run_detection(
-    source="data/test.jpg",
+    source="data/porsche.jpg",
     model_path="models/yolov8n.pt",
     conf=0.5,
     save_results=True,
@@ -63,6 +73,9 @@ def run_detection(
             label = names[cls_id]
             conf_score = float(box.conf[0].item())
             bbox = box.xyxy[0].cpu().numpy()  # (x1, y1, x2, y2)
+            
+            #if conf_score < 0.6:
+                #continue
 
             # Only process vehicle classes
             if label in ["car", "truck", "bus", "motorcycle"]:
@@ -95,7 +108,8 @@ def run_detection(
         img_with_boxes = result.plot()
         if show_results:
             try:
-                cv2.imshow("YOLO Vehicle Detection", img_with_boxes)
+                resized_img = resize_frame(img_with_boxes, scale=0.25)
+                cv2.imshow("Vehicle Detection", resized_img)
                 cv2.waitKey(0)
                 cv2.destroyAllWindows()
             except:
