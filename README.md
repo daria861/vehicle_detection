@@ -32,3 +32,5 @@ This is a template for a vehicle detection system using YOLO (v5/v8), OpenCV, an
    ```bash
    python main.py
    ```
+
+6. DATA_DIR = 'C:/Users/user/Desktop/webdev/vehicle-detection/stanford-car-dataset-by-classes-folder'

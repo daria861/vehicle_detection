@@ -2,7 +2,18 @@ import cv2
 from ultralytics import YOLO
 import os
 from src.colors import load_color_refs, estimate_color_bgr
+from src.classify import load_classifier, predict_make_model, preprocess_crop
 
+
+# Load classifier and class names once (at module level or before calling run_detection)
+classifier_model = load_classifier("models/car_make_model_efficientnet.pt", device='cpu')  # or 'cuda' if available
+
+# You need to save your class names from training, e.g. in a text file.
+# For now, let's load from a file:
+with open("models/class_names.txt", "r") as f:
+    class_names = [line.strip() for line in f]
+
+# Now run_detection can use classifier_model and class_names
 
 def resize_frame(frame, scale=0.75):
     width = int(frame.shape[1] * scale)
@@ -52,12 +63,16 @@ def run_detection(
                 if label == "car":
                     car_count += 1
                 color = estimate_color_bgr(image, bbox, color_refs, debug=debug)
+                # Crop and classify
+                x1, y1, x2, y2 = map(int, bbox)
+                vehicle_crop = image[y1:y2, x1:x2]
+                make_model = predict_make_model(classifier_model, vehicle_crop, class_names)
                 params = {
                     "class": label,
                     "confidence": conf_score,
                     "bbox": bbox.astype(int).tolist(),
                     "color": color,
-                    "make_model": "N/A",
+                    "make_model": make_model,
                     "license_plate": "N/A"
                 }
                 vehicle_params.append(params)
