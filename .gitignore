@@ -12,6 +12,7 @@ vehicle-detection-env/
 
 # Data and results
 results/
+data
 
 
 # Model weights
@@ -39,3 +40,4 @@ build/
 *.spec
 
 stanford-car-dataset-by-classes-folder/
+requirements.txt

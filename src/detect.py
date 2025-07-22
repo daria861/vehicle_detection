@@ -6,11 +6,11 @@ from src.classify import load_classifier, predict_make_model, preprocess_crop
 
 
 # Load classifier and class names once (at module level or before calling run_detection)
-classifier_model = load_classifier("models/car_make_model_efficientnet.pt", device='cpu')  # or 'cuda' if available
+classifier_model = load_classifier("models/car_make_model_efficientnet.pth", device='cpu')  # or 'cuda' if available
 
 # You need to save your class names from training, e.g. in a text file.
 # For now, let's load from a file:
-with open("models/class_names.txt", "r") as f:
+with open("models/names.csv", "r") as f:
     class_names = [line.strip() for line in f]
 
 # Now run_detection can use classifier_model and class_names
