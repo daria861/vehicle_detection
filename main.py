@@ -3,7 +3,7 @@ from src.detect import run_detection
 
 if __name__ == "__main__":
     run_detection(
-        source="data/white.jpg",
+        source="data/green.jpg",
         model_path="models/yolov8n.pt",
         conf=0.5,
         save_results=True,

@@ -2,7 +2,6 @@ import json
 import cv2
 import numpy as np
 
-
 def load_color_refs(json_path):
     """
     Load color references from a JSON file with BGR values.
@@ -40,7 +39,8 @@ def estimate_color_bgr(image, bbox, color_refs, debug=False):
     # Mask: filter by brightness in HSV
     roi_hsv = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)
     value_channel = roi_hsv[:, :, 2]
-    mask = (value_channel > 10) & (value_channel < 230)
+    s_channel = roi_hsv[:, :, 1]
+    mask = (value_channel > 20) & (value_channel < 255) & (s_channel > 20) # Avoid too dark or too bright pixels
     if mask.sum() == 0:
         if debug:
             print(f"No valid pixels in ROI at {x1_crop},{y1_crop} to {x2_crop},{y2_crop}")
