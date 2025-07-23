@@ -3,6 +3,7 @@ from ultralytics import YOLO
 import os
 from src.colors import load_color_refs, estimate_color_bgr
 from src.classify import load_classifier, predict_make_model, preprocess_crop
+import matplotlib.pyplot as plt
 
 # EasyOCR for OCR functionality:
 import easyocr
@@ -91,9 +92,9 @@ def run_detection(
                 # Draw bounding box and label
                 cv2.rectangle(img_with_boxes, (x1, y1), (x2, y2), (0, 255, 0), 2)
                 if label == "car":
-                    text = f"Car {car_count}: {color} {license_plate}"
+                    text = f"Car {car_count}: {color} {make_model} {license_plate}"
                 else:
-                    text = f"{label}: {color} {license_plate}"
+                    text = f"{label}: {color} {make_model} {license_plate}"
                 text_pos = (x1, y1 - 10 if y1 > 20 else y1 + 20)
                 cv2.putText(
                     img_with_boxes,
@@ -117,7 +118,7 @@ def run_detection(
 
     if show_results:
         try:
-            resized_img = resize_frame(img_with_boxes, scale=0.5)
+            resized_img = resize_frame(img_with_boxes, scale=1.0)
             cv2.imshow("Vehicle Detection", resized_img)
             cv2.waitKey(0)
             cv2.destroyAllWindows()

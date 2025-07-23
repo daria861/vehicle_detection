@@ -1,10 +1,10 @@
 from src.detect import run_detection
- 
+
 
 if __name__ == "__main__":
     run_detection(
-        source="data/59.jpg",
-        model_path="models/yolov8n.pt",
+        source="data/cars/green.jpg",
+        model_path="models/yolo8n.pt",
         conf=0.5,
         save_results=True,
         show_results=True,
