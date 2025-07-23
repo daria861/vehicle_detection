@@ -31,7 +31,7 @@ def main():
     test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False, num_workers=2)
 
     # Save class mapping
-    with open("class_to_idx.json", "w") as f:
+    with open("models/class_to_idx.json", "w") as f:
         json.dump(train_dataset.class_to_idx, f)
 
     # Model
