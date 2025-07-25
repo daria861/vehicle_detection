@@ -2,8 +2,8 @@ import cv2
 from ultralytics import YOLO
 import os
 from src.colors import load_color_refs, estimate_color_bgr
-from src.classify import load_classifier, predict_make_model, preprocess_crop
-import matplotlib.pyplot as plt
+from src.classify import load_classifier, predict_make_model
+
 
 # EasyOCR for OCR functionality:
 import easyocr

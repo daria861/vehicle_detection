@@ -47,7 +47,7 @@ class CarRecognitionApp:
         self.container.pack(fill='both', expand=True, padx=25, pady=25)
 
         # Left - image canvas
-        self.canvas = tk.Canvas(self.container, width=800, height=660, bg="#2c2f33", highlightthickness=0)
+        self.canvas = tk.Canvas(self.container, width=800, height=600, bg="#2c2f33", highlightthickness=0)
         self.canvas.grid(row=0, column=0, rowspan=10, sticky="nsw", padx=(0,40))
 
         # Right - sidebar
@@ -64,16 +64,16 @@ class CarRecognitionApp:
             self.button_frame, text="Upload Image", font=FONT_BOLD,
             command=self.upload_image, bg="#7289da", fg="white", relief="flat", activebackground="#99aab5", width=30
         )
-        self.upload_btn.pack(fill='x', pady=(0,25), ipadx=10, ipady=8)
+        self.upload_btn.pack(fill='x', pady=(0,15), ipadx=10, ipady=8)
 
         self.detect_btn = tk.Button(
             self.button_frame, text="Run Detection", font=FONT_BOLD,
             command=self.run_detection, bg="#43b581", fg="white", relief="flat", activebackground="#99aab5", width=30
         )
-        self.detect_btn.pack(fill='x', pady=(0,25), ipadx=10, ipady=8)
+        self.detect_btn.pack(fill='x', pady=(0,15), ipadx=10, ipady=8)
 
         self.nav_frame = tk.Frame(self.sidebar, bg="#23272a", width=350)
-        self.nav_frame.pack(fill='x', pady=(0,15))
+        self.nav_frame.pack(fill='x', pady=(0,10))
         self.prev_btn = tk.Button(
             self.nav_frame, text="← Previous", font=FONT_NORMAL,
             command=self.show_prev_car, bg="#99aab5", fg="#23272a", relief="flat"
@@ -90,7 +90,7 @@ class CarRecognitionApp:
             self.sidebar, text="Car Details", font=FONT_TITLE,
             fg="#fff", bg="#23272a"
         )
-        self.details_title.pack(anchor='w', pady=(10,10))
+        self.details_title.pack(anchor='w', pady=(10,5))
 
         # Details labels using DetailsLabel class
         self.detail_color = DetailsLabel(self.sidebar, "Color", font=FONT_NORMAL)
@@ -118,7 +118,7 @@ class CarRecognitionApp:
         if file_path:
             self.image_path = file_path
             img = Image.open(file_path)
-            img.thumbnail((800, 750))
+            img.thumbnail((800, 600))
             self.img_tk = ImageTk.PhotoImage(img)
             self.canvas.delete("all")
             self.canvas.create_image(0, 0, anchor='nw', image=self.img_tk)
@@ -156,7 +156,7 @@ class CarRecognitionApp:
         out_path = os.path.join("results", f"detected_{os.path.basename(self.image_path)}")
         if os.path.exists(out_path):
             img = Image.open(out_path)
-            img.thumbnail((800, 750))
+            img.thumbnail((800, 600))
             self.img_tk = ImageTk.PhotoImage(img)
             self.canvas.delete("all")
             self.canvas.create_image(0, 0, anchor='nw', image=self.img_tk)
