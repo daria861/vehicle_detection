@@ -22,7 +22,7 @@ def scrape_car_images(car_model, search_url, output_folder):
 
 # Example usage https://www.carzone.ie/cars/toyota/corolla
 scrape_car_images(
-    car_model='Toyota C-HR',
-    search_url='https://www.carzone.ie/cars/toyota/c-hr',
-    output_folder='./dataset/Toyota_C-HR'
+    car_model='Ford Puma',
+    search_url='https://www.carzone.ie/cars/ford/puma',
+    output_folder='./dataset/Ford_Puma'
 )
