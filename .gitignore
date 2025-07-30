@@ -13,6 +13,7 @@ vehicle-detection-env/
 # Data and results
 results/
 data
+dataset/
 
 
 # Model weights

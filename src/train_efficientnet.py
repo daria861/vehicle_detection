@@ -8,8 +8,8 @@ import json
 
 def main():
     # Paths
-    train_dir = 'stanford-car-dataset-by-classes-folder/car_data/car_data/train'
-    test_dir = 'stanford-car-dataset-by-classes-folder/car_data/car_data/test'
+    train_dir = 'dataset/train'
+    test_dir = 'dataset/test'
 
     print("Working directory:", os.getcwd())
     print("Train classes:", os.listdir(train_dir))

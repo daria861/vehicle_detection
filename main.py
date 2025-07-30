@@ -3,7 +3,7 @@ from tkinter import filedialog, messagebox
 from PIL import Image, ImageTk
 import os
 
-from src.detect import run_detection  # Your detection function
+from src.detect import run_detection  # Detection function
 
 # Define fonts
 FONT_NORMAL = ("Segoe UI", 13)

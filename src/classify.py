@@ -4,7 +4,7 @@ import cv2
 from PIL import Image
 import numpy as np
 
-def load_classifier(model_path, device='cpu', num_classes=196):
+def load_classifier(model_path, device='cpu', num_classes=197):
     """
     Load the EfficientNet classifier for car make/model recognition.
     """
