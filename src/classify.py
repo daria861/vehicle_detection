@@ -3,18 +3,24 @@ from torchvision import transforms, models
 import cv2
 from PIL import Image
 import numpy as np
+import json
 
-def load_classifier(model_path, device='cpu', num_classes=197):
+def load_classifier(model_path, class_map_path, device='cpu'):
     """
     Load the EfficientNet classifier for car make/model recognition.
     """
+    with open(class_map_path, "r") as f:
+        class_to_idx = json.load(f)
+    num_classes = len(class_to_idx)
     model = models.efficientnet_b0(weights=None)
     model.classifier[1] = torch.nn.Linear(model.classifier[1].in_features, num_classes)
     state = torch.load(model_path, map_location=device)
     model.load_state_dict(state)
     model.to(device)
     model.eval()
-    return model
+    idx_to_class = {v: k for k, v in class_to_idx.items()}
+    class_names = [idx_to_class[i] for i in range(num_classes)]
+    return model, class_names
 
 def preprocess_crop(img, input_size=(224, 224)):
     """

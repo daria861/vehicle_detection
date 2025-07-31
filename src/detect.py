@@ -4,15 +4,16 @@ import os
 from src.colors import load_color_refs, estimate_color_bgr
 from src.classify import load_classifier, predict_make_model
 
-
 # EasyOCR for OCR functionality:
 import easyocr
 
 # Load classifier and class names once (at module level or before calling run_detection)
-classifier_model = load_classifier("models/car_make_model_efficientnet.pth", device='cpu')
+classifier_model, class_names = load_classifier(
+    "models/car_make_model.pth", "models/class_to_idx.json", device='cpu'
+)
 
-with open("models/names.csv", "r") as f:
-    class_names = [line.strip() for line in f]
+# with open("models/names.csv", "r") as f:
+#     class_names = [line.strip() for line in f]
 
 # Load YOLO model for license plate detection
 lp_model = YOLO("models/license_plate_detector.pt")  # Path to license plate weights
